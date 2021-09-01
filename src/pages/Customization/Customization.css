@@ -1,0 +1,32 @@
+img {
+  height: 100px;
+}
+
+.steve {
+  height: 300px;
+  width: 150px;
+  background-image: url("../../Images/steve.png");
+  background-size: 150px;
+  position: relative;
+}
+
+.hat {
+  position: absolute;
+  left: 20px;
+}
+
+.shirt {
+  position: absolute;
+  top: 85px;
+  left: 20px;
+}
+
+.pants {
+  position: absolute;
+  left: 25px;
+  top: 170px;
+}
+
+.tabs {
+  display: flex;
+}
