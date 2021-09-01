@@ -1,7 +1,12 @@
 .word-container {
 	display: flex !important;
+	margin-top: 20px;
 }
-
 .letter {
-    
+	font-size: 40px;
+	font-family: monospace;
+	padding: 1px 11px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px 0px;
+	margin: 0 3px;
 }

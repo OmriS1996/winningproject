@@ -49,7 +49,7 @@
 .topMidSection {
 	position: absolute;
 	top: 0;
-	right: 400px;
+	right: 40%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -63,7 +63,6 @@
 	height: 30%;
 }
 .wordWrap {
-	border: 1px solid black;
 	margin: 2px;
 }
 .rightSection {

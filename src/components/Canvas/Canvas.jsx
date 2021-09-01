@@ -16,6 +16,8 @@ const Canvas = ({ parent, setIsSearching, setResult }) => {
 		if (debouncedSearchTerm) {
 			setIsSearching(true);
 
+			console.log(debouncedSearchTerm);
+
 			axios({
 				method: "post",
 				url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
