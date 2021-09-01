@@ -1,0 +1,101 @@
+* {
+	max-height: 400px;
+}
+.gameWrap {
+	width: 100%;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: rgb(252, 240, 240);
+}
+.sectionsWrap {
+	display: flex;
+}
+.leftSection {
+	width: 20%;
+	border-right: 1px solid black;
+	height: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+.scoreWrap {
+	/* border: 1px solid black;
+  border-radius: 100px; */
+	height: 80px;
+	width: 45%;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.scoreText {
+	font-size: 25px;
+}
+.pointsWrap {
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 50%;
+	height: 30%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.midSection {
+	width: 60%;
+	height: 400px;
+	position: relative;
+}
+.topMidSection {
+	position: absolute;
+	top: 0;
+	right: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.imageWrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid black;
+	width: 150px;
+	height: 30%;
+}
+.wordWrap {
+	border: 1px solid black;
+	margin: 2px;
+}
+.rightSection {
+	width: 20%;
+	border-left: 1px solid black;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+/* .timerWrap {
+  border: 2px solid black;
+  height: 30px;
+  display: flex-start;
+} */
+.mascotWrap {
+	border: 2px solid black;
+	height: 80%;
+	width: 65%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.eraseWrap {
+	border: 1px solid black;
+	margin-bottom: 20px;
+}
+.eraseIcon {
+	padding: 10px;
+}
+
+.canvas {
+	position: absolute;
+}
