@@ -69,6 +69,7 @@ const Game = () => {
 
 	useEffect(() => {
 		if (!wins) return;
+		setLoses(0);
 		setImgSrc();
 		openModal();
 		setTimeout(() => {
