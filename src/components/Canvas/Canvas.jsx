@@ -22,8 +22,6 @@ const Canvas = ({
 		if (debouncedSearchTerm) {
 			setIsSearching(true);
 
-			setResult({ res: 5 });
-
 			axios({
 				method: "post",
 				url: "https://abc-drawing-game-server.herokuapp.com/json",
