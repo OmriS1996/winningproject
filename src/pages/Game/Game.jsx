@@ -1,13 +1,11 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import Canvas from "../../components/Canvas/Canvas";
 import "./Game.css";
 import Word from "../../components/Word/Word";
-import AppContext from "../../Context/Context";
 
 const Game = () => {
-	const appContext = useContext(AppContext);
 	const midDivRef = useRef();
 	const history = useHistory();
 	const [result, setResult] = useState(0);

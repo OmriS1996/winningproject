@@ -15,27 +15,26 @@ const Canvas = ({ parent, setIsSearching, setResult }) => {
 	useEffect(() => {
 		if (debouncedSearchTerm) {
 			setIsSearching(true);
-			setResult((prev) => prev + 1);
 
-			// console.log(debouncedSearchTerm);
+			console.log(debouncedSearchTerm);
 
-			// axios({
-			// 	method: "post",
-			// 	url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
-			// 	headers: {
-			// 		"Access-Control-Allow-Origin": "*",
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	data: debouncedSearchTerm,
-			// })
-			// 	.then(function (response) {
-			// 		setIsSearching(false);
-			// 		console.log(response);
-			// 		setResult(response);
-			// 	})
-			// 	.catch(function (error) {
-			// 		console.log(error);
-			// 	});
+			axios({
+				method: "post",
+				url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Content-Type": "application/json",
+				},
+				data: debouncedSearchTerm,
+			})
+				.then(function (response) {
+					setIsSearching(false);
+					console.log(response);
+					setResult(response);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 
 			contextRef.current.clearRect(
 				0,
