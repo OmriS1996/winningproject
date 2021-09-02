@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import cropImageFromCanvas from "./canvasFunctions";
 import useDebounce from "./debounce";
+import AppContext from "../../Context/Context";
 
 const Canvas = ({ parent, setIsSearching, setResult }) => {
 	const [isDrawing, setIsDrawing] = useState();
@@ -15,26 +16,27 @@ const Canvas = ({ parent, setIsSearching, setResult }) => {
 	useEffect(() => {
 		if (debouncedSearchTerm) {
 			setIsSearching(true);
+			setResult((prev) => prev + 1);
 
-			console.log(debouncedSearchTerm);
+			// console.log(debouncedSearchTerm);
 
-			axios({
-				method: "post",
-				url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
-				headers: {
-					"Access-Control-Allow-Origin": "*",
-					"Content-Type": "application/json",
-				},
-				data: debouncedSearchTerm,
-			})
-				.then(function (response) {
-					setIsSearching(false);
-					console.log(response);
-					setResult(response);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+			// axios({
+			// 	method: "post",
+			// 	url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
+			// 	headers: {
+			// 		"Access-Control-Allow-Origin": "*",
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	data: debouncedSearchTerm,
+			// })
+			// 	.then(function (response) {
+			// 		setIsSearching(false);
+			// 		console.log(response);
+			// 		setResult(response);
+			// 	})
+			// 	.catch(function (error) {
+			// 		console.log(error);
+			// 	});
 
 			contextRef.current.clearRect(
 				0,
@@ -42,8 +44,6 @@ const Canvas = ({ parent, setIsSearching, setResult }) => {
 				canvasRef.current.width,
 				canvasRef.current.height
 			);
-		} else {
-			setResult();
 		} // eslint-disable-next-line
 	}, [debouncedSearchTerm]);
 

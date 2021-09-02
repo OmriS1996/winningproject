@@ -10,10 +10,28 @@ const Game = () => {
 	const appContext = useContext(AppContext);
 	const midDivRef = useRef();
 	const history = useHistory();
+	const [result, setResult] = useState(0);
 	const [wins, setWins] = useState();
-	const [result, setResult] = useState();
+	const [seconds, setSeconds] = useState(0);
 	const [isSearching, setIsSearching] = useState(false);
 	const [score, setScore] = useState(0);
+	const [currentAnimal, setCurrentAnimal] = useState();
+	const [animalIndex, setAnimalIndex] = useState(0);
+
+	const animalArray = [
+		{ name: "DOG", img: "" },
+		{ name: "CAT", img: "" },
+		{ name: "COW", img: "" },
+		{ name: "APPLE", img: "" },
+		{ name: "BANANA", img: "" },
+	];
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setSeconds((seconds) => seconds + 1);
+		}, 1000);
+		return () => clearInterval(interval);
+	}, []);
 
 	useEffect(() => {
 		if (wins === 3) {
@@ -21,11 +39,19 @@ const Game = () => {
 	}, [wins]);
 
 	useEffect(() => {
-		if (result) {
-			setScore((prev) => prev + 100);
-			setWins((prev) => prev++);
+		if (!result) {
+			return;
 		}
+		let extraPoints = 1;
+		if (seconds < 19) extraPoints = 20 - seconds;
+		setScore((prev) => prev + 100 * extraPoints);
+		setWins((prev) => prev++);
+		setAnimalIndex((prev) => prev + 1);
 	}, [result]);
+
+	useEffect(() => {
+		setCurrentAnimal(animalArray[animalIndex]);
+	}, [animalIndex]);
 
 	useEffect(() => {}, [isSearching]);
 
@@ -57,19 +83,23 @@ const Game = () => {
 							setResult={setResult}
 							setIsSearching={setIsSearching}
 						></Canvas>
+						<div className="timerWrap">
+							<div className="timer">{seconds}</div>
+						</div>
 						<div className="topMidSection">
 							<div className="imageWrap">
-								<div className="image">image</div>
+								{currentAnimal && (
+									<img alt={""} src={currentAnimal.img} />
+								)}
 							</div>
 							<div className="wordWrap">
-								<Word word="cat" />
+								{currentAnimal && (
+									<Word word={currentAnimal.name} />
+								)}
 							</div>
 						</div>
 					</div>
 					<div className="rightSection">
-						<div className="timerWrap">
-							<div className="timer">Timer</div>
-						</div>
 						<div className="mascotWrap">
 							<div className="mascot">
 								<img
