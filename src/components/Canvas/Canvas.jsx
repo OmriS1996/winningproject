@@ -100,9 +100,12 @@ const Canvas = ({
 		<>
 			<canvas
 				style={style && { backgroundImage: `url(${style})` }}
-				onPointerDown={startDrawing}
-				onPointerUp={finishDrawing}
+				onMouseDown={startDrawing}
+				onMouseUp={finishDrawing}
 				onMouseMove={draw}
+				onTouchStart={startDrawing}
+				onTouchEnd={finishDrawing}
+				onTouchMove={draw}
 				ref={canvasRef}
 			/>
 		</>
