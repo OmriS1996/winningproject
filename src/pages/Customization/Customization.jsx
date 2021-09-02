@@ -26,6 +26,7 @@ const Customization = () => {
   function handleHatChoice(e) {
     if (hat === e.target.src) {
       setHat(undefined);
+      localStorage.setItem("hat", undefined);
     } else {
       setHat(e.target.src);
     }
@@ -34,6 +35,7 @@ const Customization = () => {
   function handleShirtChoice(e) {
     if (shirt === e.target.src) {
       setShirt(undefined);
+      localStorage.setItem("shirt", undefined);
     } else {
       setShirt(e.target.src);
     }
@@ -42,6 +44,7 @@ const Customization = () => {
   function handlePantsChoice(e) {
     if (pants === e.target.src) {
       setPants(undefined);
+      localStorage.setItem("pants", undefined);
     } else {
       setPants(e.target.src);
     }
@@ -53,6 +56,9 @@ const Customization = () => {
       shirt: shirt,
       pants: pants,
     });
+    localStorage.setItem("hat", hat);
+    localStorage.setItem("pants", pants);
+    localStorage.setItem("shirt", shirt);
   }, [hat, shirt, pants]);
 
   function returnToHome() {
