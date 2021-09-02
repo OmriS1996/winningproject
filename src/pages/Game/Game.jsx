@@ -11,7 +11,8 @@ const Game = () => {
 	const midDivRef = useRef();
 	const history = useHistory();
 	const [result, setResult] = useState(0);
-	const [wins, setWins] = useState();
+	const [wins, setWins] = useState(0);
+	const [loses, setLoses] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	const [isSearching, setIsSearching] = useState(false);
 	const [score, setScore] = useState(0);
@@ -39,7 +40,13 @@ const Game = () => {
 	}, [wins]);
 
 	useEffect(() => {
+		if (loses === 3) {
+		}
+	}, [loses]);
+
+	useEffect(() => {
 		if (!result) {
+			setLoses((prev) => prev + 1);
 			return;
 		}
 		let extraPoints = 1;

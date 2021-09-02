@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import cropImageFromCanvas from "./canvasFunctions";
 import useDebounce from "./debounce";
-import AppContext from "../../Context/Context";
 
 const Canvas = ({ parent, setIsSearching, setResult }) => {
 	const [isDrawing, setIsDrawing] = useState();
