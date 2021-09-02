@@ -3,7 +3,7 @@ import axios from "axios";
 import cropImageFromCanvas from "./canvasFunctions";
 import useDebounce from "./debounce";
 
-const Canvas = ({ parent, setIsSearching, setResult }) => {
+const Canvas = ({ parent, setIsSearching, setResult, missingLetter }) => {
 	const [isDrawing, setIsDrawing] = useState();
 	const [canvasImg, setCanvasImg] = useState();
 
@@ -75,7 +75,8 @@ const Canvas = ({ parent, setIsSearching, setResult }) => {
 		const croppedCanvas = cropImageFromCanvas(canvasRef.current);
 		const imgString = croppedCanvas.toDataURL();
 		const imageJson = JSON.stringify({
-			data: imgString.slice(22, imgString.length),
+			img: imgString.slice(22, imgString.length),
+			letter: missingLetter,
 		});
 		setCanvasImg(imageJson);
 		setIsDrawing(false);
