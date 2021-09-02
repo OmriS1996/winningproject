@@ -87,7 +87,15 @@ const Canvas = ({
 	};
 
 	const draw = ({ nativeEvent }) => {
+		console.log(nativeEvent);
 		if (!isDrawing) {
+			return;
+		}
+		if (nativeEvent.touches) {
+			const { clientX, clientY } = nativeEvent.touches[0];
+			contextRef.current.lineTo(clientX - 200, clientY);
+			contextRef.current.stroke();
+			setCanvasImg();
 			return;
 		}
 		setCanvasImg();
