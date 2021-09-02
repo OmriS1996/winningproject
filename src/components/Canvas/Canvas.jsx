@@ -25,6 +25,7 @@ const Canvas = ({
 			axios({
 				method: "post",
 				url: "https://abc-drawing-game-server.herokuapp.com/json",
+				// url: "http://localhost:5000/json",
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
@@ -79,8 +80,7 @@ const Canvas = ({
 		const croppedCanvas = cropImageFromCanvas(canvasRef.current);
 		const imgString = croppedCanvas.toDataURL();
 		const imageJson = JSON.stringify({
-			img: imgString.slice(22, imgString.length),
-			letter: missingLetter,
+			data: imgString.slice(22, imgString.length),
 		});
 		setCanvasImg(imageJson);
 		setIsDrawing(false);

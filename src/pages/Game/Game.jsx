@@ -99,13 +99,16 @@ const Game = () => {
 		if (!result) {
 			return;
 		}
-		if (result?.letter !== missingLetter) {
+		console.log(result);
+		if (result?.data.letter !== missingLetter) {
 			setLoses((prev) => prev + 1);
 			return;
 		}
 		let extraPoints = 1;
 		if (seconds < 19) extraPoints = 20 - seconds;
-		setScore((prev) => prev + 100 * extraPoints * result?.certain);
+		setScore((prev) =>
+			Math.floor(prev + 100 * extraPoints * result?.data.certain)
+		);
 		setWins((prev) => prev + 1);
 		setAnimalIndex((prev) => prev + 1);
 		clearInterval(intervalToClear);
