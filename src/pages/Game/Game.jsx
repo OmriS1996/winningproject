@@ -16,6 +16,7 @@ const Game = () => {
 	const [score, setScore] = useState(0);
 	const [currentAnimal, setCurrentAnimal] = useState();
 	const [animalIndex, setAnimalIndex] = useState(0);
+	const [intervalToClear, setIntervalToClear] = useState();
 
 	const animalArray = [
 		{ name: "DOG", img: "" },
@@ -29,6 +30,7 @@ const Game = () => {
 		const interval = setInterval(() => {
 			setSeconds((seconds) => seconds + 1);
 		}, 1000);
+		setIntervalToClear(interval);
 		return () => clearInterval(interval);
 	}, []);
 
@@ -52,9 +54,17 @@ const Game = () => {
 		setScore((prev) => prev + 100 * extraPoints);
 		setWins((prev) => prev++);
 		setAnimalIndex((prev) => prev + 1);
+		clearInterval(intervalToClear);
+		setSeconds(0);
+		const interval = setInterval(() => {
+			setSeconds((seconds) => seconds + 1);
+		}, 1000);
+		setIntervalToClear(interval);
+		return () => clearInterval(interval);
 	}, [result]);
 
 	useEffect(() => {
+		if (animalIndex === 5) setAnimalIndex(0);
 		setCurrentAnimal(animalArray[animalIndex]);
 	}, [animalIndex]);
 
