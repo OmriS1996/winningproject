@@ -45,11 +45,11 @@ function cropImageFromCanvas(c) {
 	}
 
 	// Calculate the height and width of the content
-	var trimHeight = bound.bottom - bound.top,
-		trimWidth = bound.right - bound.left,
+	var trimHeight = bound.bottom - bound.top + 100,
+		trimWidth = bound.right - bound.left + 100,
 		trimmed = ctx.getImageData(
-			bound.left,
-			bound.top,
+			bound.left - 50,
+			bound.top - 50,
 			trimWidth,
 			trimHeight
 		);
