@@ -17,6 +17,8 @@ const Game = () => {
 	const [currentAnimal, setCurrentAnimal] = useState();
 	const [animalIndex, setAnimalIndex] = useState(0);
 	const [intervalToClear, setIntervalToClear] = useState();
+	const [missingLetter, setMissingLetter] = useState();
+	const [missingLetterIndex, setMissingLetterIndex] = useState();
 
 	const animalArray = [
 		{ name: "DOG", img: "" },
@@ -68,6 +70,16 @@ const Game = () => {
 		setCurrentAnimal(animalArray[animalIndex]);
 	}, [animalIndex]);
 
+	useEffect(() => {
+		if (!currentAnimal) return;
+		const missLetterIndex = Math.floor(
+			Math.random() * currentAnimal.name.length
+		);
+		setMissingLetterIndex(missLetterIndex);
+		console.log(currentAnimal);
+		setMissingLetter(currentAnimal.name.charAt(missLetterIndex));
+	}, [currentAnimal]);
+
 	useEffect(() => {}, [isSearching]);
 
 	function returnToHome() {
@@ -97,6 +109,7 @@ const Game = () => {
 							parent={midDivRef}
 							setResult={setResult}
 							setIsSearching={setIsSearching}
+							missingLetter={missingLetter}
 						></Canvas>
 						<div className="timerWrap">
 							<div className="timer">{seconds}</div>
@@ -109,7 +122,10 @@ const Game = () => {
 							</div>
 							<div className="wordWrap">
 								{currentAnimal && (
-									<Word word={currentAnimal.name} />
+									<Word
+										word={currentAnimal.name}
+										missingLetterIndex={missingLetterIndex}
+									/>
 								)}
 							</div>
 						</div>
