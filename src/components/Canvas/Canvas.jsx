@@ -3,7 +3,13 @@ import axios from "axios";
 import cropImageFromCanvas from "./canvasFunctions";
 import useDebounce from "./debounce";
 
-const Canvas = ({ parent, setIsSearching, setResult, missingLetter }) => {
+const Canvas = ({
+	parent,
+	setIsSearching,
+	setResult,
+	missingLetter,
+	style,
+}) => {
 	const [isDrawing, setIsDrawing] = useState();
 	const [canvasImg, setCanvasImg] = useState();
 
@@ -16,11 +22,11 @@ const Canvas = ({ parent, setIsSearching, setResult, missingLetter }) => {
 		if (debouncedSearchTerm) {
 			setIsSearching(true);
 
-			console.log(debouncedSearchTerm);
+			setResult({ res: 5 });
 
 			axios({
 				method: "post",
-				url: "https://abc-drawing-game-server.herokuapp.com/bad_prediction",
+				url: "https://abc-drawing-game-server.herokuapp.com/json",
 				headers: {
 					"Access-Control-Allow-Origin": "*",
 					"Content-Type": "application/json",
@@ -95,6 +101,7 @@ const Canvas = ({ parent, setIsSearching, setResult, missingLetter }) => {
 	return (
 		<>
 			<canvas
+				style={style && { backgroundImage: `url(${style})` }}
 				onMouseDown={startDrawing}
 				onMouseUp={finishDrawing}
 				onMouseMove={draw}

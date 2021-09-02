@@ -9,6 +9,19 @@ import dog from "../../Images/dog.jpg";
 import cow from "../../Images/cow.png";
 import apple from "../../Images/apple.jpg";
 import banana from "../../Images/banana.jpg";
+import A from "../../Images/A.png";
+import B from "../../Images/B.png";
+import C from "../../Images/C.png";
+import D from "../../Images/D.png";
+import E from "../../Images/E.png";
+import G from "../../Images/G.png";
+import L from "../../Images/L.png";
+import N from "../../Images/N.png";
+import O from "../../Images/O.png";
+import P from "../../Images/P.png";
+import T from "../../Images/T.png";
+import W from "../../Images/W.png";
+import diamond_armor from "../../Images/diamond_armor.png";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrinWink } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +41,7 @@ const Game = () => {
 	const [missingLetter, setMissingLetter] = useState();
 	const [missingLetterIndex, setMissingLetterIndex] = useState();
 	const [modalIsOpen, setIsOpen] = useState(false);
+	const [imgSrc, setImgSrc] = useState();
 
 	function openModal() {
 		setIsOpen(true);
@@ -54,10 +68,8 @@ const Game = () => {
 	}, []);
 
 	useEffect(() => {
-		if (wins === 3) {
-			setWins(0);
-			return;
-		}
+		if (!wins) return;
+		setImgSrc();
 		openModal();
 		setTimeout(() => {
 			closeModal();
@@ -65,18 +77,35 @@ const Game = () => {
 	}, [wins]);
 
 	useEffect(() => {
+		console.log(loses);
 		if (loses === 3) {
+			setLoses(0);
+			if (missingLetter === "A") setImgSrc(A);
+			if (missingLetter === "B") setImgSrc(B);
+			if (missingLetter === "C") setImgSrc(C);
+			if (missingLetter === "D") setImgSrc(D);
+			if (missingLetter === "E") setImgSrc(E);
+			if (missingLetter === "G") setImgSrc(G);
+			if (missingLetter === "L") setImgSrc(L);
+			if (missingLetter === "N") setImgSrc(N);
+			if (missingLetter === "O") setImgSrc(O);
+			if (missingLetter === "P") setImgSrc(P);
+			if (missingLetter === "T") setImgSrc(T);
+			if (missingLetter === "W") setImgSrc(W);
 		}
 	}, [loses]);
 
 	useEffect(() => {
 		if (!result) {
+			return;
+		}
+		if (result?.letter !== missingLetter) {
 			setLoses((prev) => prev + 1);
 			return;
 		}
 		let extraPoints = 1;
 		if (seconds < 19) extraPoints = 20 - seconds;
-		setScore((prev) => prev + 100 * extraPoints);
+		setScore((prev) => prev + 100 * extraPoints * result?.certain);
 		setWins((prev) => prev + 1);
 		setAnimalIndex((prev) => prev + 1);
 		clearInterval(intervalToClear);
@@ -128,6 +157,7 @@ const Game = () => {
 					</div>
 					<div ref={midDivRef} className="midSection">
 						<Canvas
+							style={imgSrc}
 							className="canvas"
 							parent={midDivRef}
 							setResult={setResult}
@@ -192,8 +222,17 @@ const Game = () => {
 					},
 				}}
 			>
-				Good Job!
-				<FontAwesomeIcon icon={faGrinWink} />
+				{wins % 3 !== 0 ? (
+					<>
+						Good Job!
+						<FontAwesomeIcon icon={faGrinWink} />
+					</>
+				) : (
+					<>
+						Array! new item!
+						<img alt={""} src={diamond_armor} />
+					</>
+				)}
 			</Modal>
 		</>
 	);

@@ -101,6 +101,7 @@
 
 .canvas {
 	position: absolute;
+	z-index: 1;
 }
 
 .mascot {
@@ -126,4 +127,11 @@
 	position: absolute;
 	left: 25px;
 	top: 170px;
+}
+
+.back-img {
+	position: absolute;
+	bottom: 10px;
+	right: 40%;
+	z-index: 1;
 }
