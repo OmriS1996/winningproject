@@ -12,7 +12,6 @@ const Homepage = () => {
 
   function openModal() {
     setIsOpen(true);
-    console.log("modal open");
   }
 
   function closeModal() {

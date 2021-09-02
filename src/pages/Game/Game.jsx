@@ -9,6 +9,9 @@ import dog from "../../Images/dog.jpg";
 import cow from "../../Images/cow.png";
 import apple from "../../Images/apple.jpg";
 import banana from "../../Images/banana.jpg";
+import Modal from "react-modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGrinWink } from "@fortawesome/free-solid-svg-icons";
 
 const Game = () => {
   const midDivRef = useRef();
@@ -24,6 +27,15 @@ const Game = () => {
   const [intervalToClear, setIntervalToClear] = useState();
   const [missingLetter, setMissingLetter] = useState();
   const [missingLetterIndex, setMissingLetterIndex] = useState();
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const animalArray = [
     { name: "DOG", img: dog },
@@ -42,7 +54,12 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    if (wins === 3) {
+    if (wins === 1) {
+      console.log("win");
+      openModal();
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
     }
   }, [wins]);
 
@@ -59,7 +76,7 @@ const Game = () => {
     let extraPoints = 1;
     if (seconds < 19) extraPoints = 20 - seconds;
     setScore((prev) => prev + 100 * extraPoints);
-    setWins((prev) => prev++);
+    setWins((prev) => prev + 1);
     setAnimalIndex((prev) => prev + 1);
     clearInterval(intervalToClear);
     setSeconds(0);
@@ -156,6 +173,25 @@ const Game = () => {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="settings"
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            background: "green",
+          },
+        }}
+      >
+        Good Job!
+        <FontAwesomeIcon icon={faGrinWink} />
+      </Modal>
     </>
   );
 };
