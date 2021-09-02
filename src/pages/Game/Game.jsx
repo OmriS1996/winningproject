@@ -14,186 +14,189 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrinWink } from "@fortawesome/free-solid-svg-icons";
 
 const Game = () => {
-  const midDivRef = useRef();
-  const history = useHistory();
-  const [result, setResult] = useState(0);
-  const [wins, setWins] = useState(0);
-  const [loses, setLoses] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [isSearching, setIsSearching] = useState(false);
-  const [score, setScore] = useState(0);
-  const [currentAnimal, setCurrentAnimal] = useState();
-  const [animalIndex, setAnimalIndex] = useState(0);
-  const [intervalToClear, setIntervalToClear] = useState();
-  const [missingLetter, setMissingLetter] = useState();
-  const [missingLetterIndex, setMissingLetterIndex] = useState();
-  const [modalIsOpen, setIsOpen] = useState(false);
+	const midDivRef = useRef();
+	const history = useHistory();
+	const [result, setResult] = useState(0);
+	const [wins, setWins] = useState(0);
+	const [loses, setLoses] = useState(0);
+	const [seconds, setSeconds] = useState(0);
+	const [isSearching, setIsSearching] = useState(false);
+	const [score, setScore] = useState(0);
+	const [currentAnimal, setCurrentAnimal] = useState();
+	const [animalIndex, setAnimalIndex] = useState(0);
+	const [intervalToClear, setIntervalToClear] = useState();
+	const [missingLetter, setMissingLetter] = useState();
+	const [missingLetterIndex, setMissingLetterIndex] = useState();
+	const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+	function openModal() {
+		setIsOpen(true);
+	}
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+	function closeModal() {
+		setIsOpen(false);
+	}
 
-  const animalArray = [
-    { name: "DOG", img: dog },
-    { name: "CAT", img: cat },
-    { name: "COW", img: cow },
-    { name: "APPLE", img: apple },
-    { name: "BANANA", img: banana },
-  ];
+	const animalArray = [
+		{ name: "DOG", img: dog },
+		{ name: "CAT", img: cat },
+		{ name: "COW", img: cow },
+		{ name: "APPLE", img: apple },
+		{ name: "BANANA", img: banana },
+	];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-    }, 1000);
-    setIntervalToClear(interval);
-    return () => clearInterval(interval);
-  }, []);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setSeconds((seconds) => seconds + 1);
+		}, 1000);
+		setIntervalToClear(interval);
+		return () => clearInterval(interval);
+	}, []);
 
-  useEffect(() => {
-    if (wins === 1) {
-      console.log("win");
-      openModal();
-      setTimeout(() => {
-        closeModal();
-      }, 3000);
-    }
-  }, [wins]);
+	useEffect(() => {
+		if (wins === 3) {
+			setWins(0);
+			return;
+		}
+		openModal();
+		setTimeout(() => {
+			closeModal();
+		}, 1500);
+	}, [wins]);
 
-  useEffect(() => {
-    if (loses === 3) {
-    }
-  }, [loses]);
+	useEffect(() => {
+		if (loses === 3) {
+		}
+	}, [loses]);
 
-  useEffect(() => {
-    if (!result) {
-      setLoses((prev) => prev + 1);
-      return;
-    }
-    let extraPoints = 1;
-    if (seconds < 19) extraPoints = 20 - seconds;
-    setScore((prev) => prev + 100 * extraPoints);
-    setWins((prev) => prev + 1);
-    setAnimalIndex((prev) => prev + 1);
-    clearInterval(intervalToClear);
-    setSeconds(0);
-    const interval = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-    }, 1000);
-    setIntervalToClear(interval);
-    return () => clearInterval(interval);
-  }, [result]);
+	useEffect(() => {
+		if (!result) {
+			setLoses((prev) => prev + 1);
+			return;
+		}
+		let extraPoints = 1;
+		if (seconds < 19) extraPoints = 20 - seconds;
+		setScore((prev) => prev + 100 * extraPoints);
+		setWins((prev) => prev + 1);
+		setAnimalIndex((prev) => prev + 1);
+		clearInterval(intervalToClear);
+		setSeconds(0);
+		const interval = setInterval(() => {
+			setSeconds((seconds) => seconds + 1);
+		}, 1000);
+		setIntervalToClear(interval);
+		return () => clearInterval(interval);
+	}, [result]);
 
-  useEffect(() => {
-    if (animalIndex === 5) setAnimalIndex(0);
-    setCurrentAnimal(animalArray[animalIndex]);
-  }, [animalIndex]);
+	useEffect(() => {
+		if (animalIndex === 5) setAnimalIndex(0);
+		setCurrentAnimal(animalArray[animalIndex]);
+	}, [animalIndex]);
 
-  useEffect(() => {
-    if (!currentAnimal) return;
-    const missLetterIndex = Math.floor(
-      Math.random() * currentAnimal.name.length
-    );
-    setMissingLetterIndex(missLetterIndex);
-    console.log(currentAnimal);
-    setMissingLetter(currentAnimal.name.charAt(missLetterIndex));
-  }, [currentAnimal]);
+	useEffect(() => {
+		if (!currentAnimal) return;
+		const missLetterIndex = Math.floor(
+			Math.random() * currentAnimal.name.length
+		);
+		setMissingLetterIndex(missLetterIndex);
+		console.log(currentAnimal);
+		setMissingLetter(currentAnimal.name.charAt(missLetterIndex));
+	}, [currentAnimal]);
 
-  useEffect(() => {}, [isSearching]);
+	useEffect(() => {}, [isSearching]);
 
-  function returnToHome() {
-    history.push("/homepage");
-  }
+	function returnToHome() {
+		history.push("/homepage");
+	}
 
-  return (
-    <>
-      <div className="gameWrap">
-        <div className="sectionsWrap">
-          <div className="leftSection">
-            <div className="scoreWrap">
-              <div className="scoreText">Score </div>
-            </div>
-            <div className="pointsWrap">
-              <div className="points">{score}</div>
-            </div>
-            <div className="eraseWrap">
-              <button className="menu" onClick={returnToHome}>
-                Main Menu
-              </button>
-            </div>
-          </div>
-          <div ref={midDivRef} className="midSection">
-            <Canvas
-              className="canvas"
-              parent={midDivRef}
-              setResult={setResult}
-              setIsSearching={setIsSearching}
-              missingLetter={missingLetter}
-            ></Canvas>
-            <div className="timerWrap">
-              <div className="timer">{seconds}</div>
-            </div>
-            <div className="topMidSection">
-              <div className="imageWrap">
-                {currentAnimal && <img alt={""} src={currentAnimal.img} />}
-              </div>
-              <div className="wordWrap">
-                {currentAnimal && (
-                  <Word
-                    word={currentAnimal.name}
-                    missingLetterIndex={missingLetterIndex}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="rightSection">
-            <div className="mascotWrap">
-              <div className="mascot">
-                <img
-                  className="hat"
-                  alt={""}
-                  src={localStorage.getItem("hat")}
-                />
-                <img
-                  className="shirt"
-                  alt={""}
-                  src={localStorage.getItem("shirt")}
-                />
-                <img
-                  className="pants"
-                  alt={""}
-                  src={localStorage.getItem("pants")}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="settings"
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            background: "green",
-          },
-        }}
-      >
-        Good Job!
-        <FontAwesomeIcon icon={faGrinWink} />
-      </Modal>
-    </>
-  );
+	return (
+		<>
+			<div className="gameWrap">
+				<div className="sectionsWrap">
+					<div className="leftSection">
+						<div className="scoreWrap">
+							<div className="scoreText">Score </div>
+						</div>
+						<div className="pointsWrap">
+							<div className="points">{score}</div>
+						</div>
+						<div className="eraseWrap">
+							<button className="menu" onClick={returnToHome}>
+								Main Menu
+							</button>
+						</div>
+					</div>
+					<div ref={midDivRef} className="midSection">
+						<Canvas
+							className="canvas"
+							parent={midDivRef}
+							setResult={setResult}
+							setIsSearching={setIsSearching}
+							missingLetter={missingLetter}
+						></Canvas>
+						<div className="timerWrap">
+							<div className="timer">{seconds}</div>
+						</div>
+						<div className="topMidSection">
+							<div className="imageWrap">
+								{currentAnimal && (
+									<img alt={""} src={currentAnimal.img} />
+								)}
+							</div>
+							<div className="wordWrap">
+								{currentAnimal && (
+									<Word
+										word={currentAnimal.name}
+										missingLetterIndex={missingLetterIndex}
+									/>
+								)}
+							</div>
+						</div>
+					</div>
+					<div className="rightSection">
+						<div className="mascotWrap">
+							<div className="mascot">
+								<img
+									className="hat"
+									alt={""}
+									src={localStorage.getItem("hat")}
+								/>
+								<img
+									className="shirt"
+									alt={""}
+									src={localStorage.getItem("shirt")}
+								/>
+								<img
+									className="pants"
+									alt={""}
+									src={localStorage.getItem("pants")}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<Modal
+				isOpen={modalIsOpen}
+				onRequestClose={closeModal}
+				contentLabel="settings"
+				style={{
+					content: {
+						top: "50%",
+						left: "50%",
+						right: "auto",
+						bottom: "auto",
+						marginRight: "-50%",
+						transform: "translate(-50%, -50%)",
+						background: "green",
+					},
+				}}
+			>
+				Good Job!
+				<FontAwesomeIcon icon={faGrinWink} />
+			</Modal>
+		</>
+	);
 };
 
 export default Game;
